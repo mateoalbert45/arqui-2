@@ -88,9 +88,6 @@ public class Estudiante {
 	}
 	
 	
-	public void addCarrera(Estudiante_Carrera carrera) {
-		carreras.add(carrera);
-	}
 	
 	
 }

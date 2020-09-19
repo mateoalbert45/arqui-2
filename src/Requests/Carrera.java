@@ -30,6 +30,21 @@ public class Carrera {
 	public void addEstudiante(Estudiante_Carrera estudiante) {
 		estudiantes.add(estudiante);
 	}
+
+
+	public int getId() {
+		return id;
+	}
+
+
+	public String getNombre() {
+		return nombre;
+	}
+
+
+	public List<Estudiante_Carrera> getEstudiantes() {
+		return estudiantes;
+	}
 	
 	
 }
