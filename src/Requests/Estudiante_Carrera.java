@@ -9,14 +9,13 @@ import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="estudiante_carrera") 
 public class Estudiante_Carrera {
 
     	@EmbeddedId
     	private Estudiante_CarreraPK id;
 
 	    @ManyToOne
-	    @MapsId("id") //This is the name of attr in EmployerDeliveryAgentPK class
+	    @MapsId("id") 
 	    @JoinColumn(name = "ID_Estudiante")
 	    private Estudiante estudiante;
 
@@ -25,13 +24,43 @@ public class Estudiante_Carrera {
 	    @JoinColumn(name = "ID_Carrera")
 	    private Carrera carrera;
 
+		public Estudiante_Carrera(){
+			
+		}
+	    
+	    
+	    
 		public Estudiante_Carrera(Estudiante_CarreraPK id, Estudiante estudiante, Carrera carrera) {
 			super();
 			this.id = id;
 			this.estudiante = estudiante;
 			this.carrera = carrera;
+		}
+
+
+
+		@Override
+		public String toString() {
+			return "Estudiante_Carrera [estudiante=" + estudiante + ", carrera=" + carrera + "]";
 		}    
 	
+		public String infoCarrera() {
+			return "Estudiante_Carrera [ carrera_id=" + carrera.getId() + ", carrera_]";
+		}
+
+
+
+		public Estudiante getEstudiante() {
+			return estudiante;
+		}
+
+
+
+		public Carrera getCarrera() {
+			return carrera;
+		}    
 	    
-	    
+		
+		
+		
 }

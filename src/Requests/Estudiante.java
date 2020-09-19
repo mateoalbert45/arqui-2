@@ -10,7 +10,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="estudiante") 
 public class Estudiante {
 	@Id
 	private int id;
@@ -30,6 +29,11 @@ public class Estudiante {
 	private int numero_libreta;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "carrera")
 	private List <Estudiante_Carrera> carreras;
+	
+	
+	public Estudiante(){
+		
+	}
 	
 	public Estudiante(int id, String nombre, String apellido, int edad, String genero, int dni,
 			String ciudad_residencia, int numero_libreta) {

@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 @Entity
-@Table(name="carrera") 
 public class Carrera {
 	@Id
 	private int id;
@@ -19,7 +18,9 @@ public class Carrera {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "estudiante")
 	private List <Estudiante_Carrera> estudiantes;
 	
-	
+	public Carrera(){
+		
+	}
 	public Carrera(int id, String nombre) {
 		super();
 		this.id = id;
@@ -44,6 +45,10 @@ public class Carrera {
 
 	public List<Estudiante_Carrera> getEstudiantes() {
 		return estudiantes;
+	}
+	@Override
+	public String toString() {
+		return "Carrera [id=" + id + ", nombre=" + nombre + "]";
 	}
 	
 	

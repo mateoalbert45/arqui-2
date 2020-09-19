@@ -17,10 +17,13 @@ import java.util.logging.Level;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+
+
 
 import Requests.Carrera;
 import Requests.Estudiante;
@@ -33,7 +36,7 @@ public class Insert {
 //		Persona p2 = new Persona(2,"mateo2","albert2");
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Arqui");
 		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
+//		em.getTransaction().begin();
 //		@SuppressWarnings("unchecked")
 //		List <Persona> personas = em.createQuery("SELECT p FROM Persona p").getResultList();
 //		for(int i = 0; i<personas.size(); i++) {
@@ -46,8 +49,11 @@ public class Insert {
 //		Estudiante_CarreraPK ec1pk = new Estudiante_CarreraPK(1,1);
 //		Estudiante_Carrera ec1 = new Estudiante_Carrera(ec1pk,e1,c1);
 		
-		recuperarEstudiantes(em);
-
+		//recuperarEstudiantes(em);
+//		estudianteSegunLibreUniversitaria(12345,em);
+//		estudianteSegunGenero("hombre",em);
+//		carrerasSegunInscriptos(em);
+		estudianteSegunCarreraCiudad(1, "tandil",em);
 //		em.persist(e1);
 //		em.persist(c1);
 //		em.persist(ec1);
@@ -81,7 +87,7 @@ public class Insert {
 	public static List<Estudiante> recuperarEstudiantes(EntityManager em){
 		em.getTransaction().begin();
 		@SuppressWarnings("unchecked")
-		List <Estudiante> estudiantes = em.createQuery("SELECT * from estudiante order by edad DESC").getResultList();
+		List <Estudiante> estudiantes = em.createQuery("SELECT e FROM Estudiante e order by edad DESC").getResultList();
 		for(int i = 0; i<estudiantes.size(); i++) {
 			System.out.println(estudiantes.get(i).toString());
 		}
@@ -89,6 +95,57 @@ public class Insert {
 		return estudiantes;
 		
 	}
+	
+	
+	//d) recuperar un estudiante, en base a su número de libreta universitaria.
+	
+	public static Estudiante estudianteSegunLibreUniversitaria(int numLibreta,EntityManager em){
+		em.getTransaction().begin();
+		@SuppressWarnings("unchecked")
+		Query query = em.createQuery("SELECT e from Estudiante e where numero_libreta = :numero_libreta");
+		Estudiante estudiante = (Estudiante) query.setParameter("numero_libreta", numLibreta).getSingleResult();
+		System.out.println(estudiante.toString());
+		em.close();
+		return estudiante;
 	}
+	
+	//e) recuperar todos los estudiantes, en base a su género.
+	public static Estudiante estudianteSegunGenero(String genero,EntityManager em){
+		em.getTransaction().begin();
+		@SuppressWarnings("unchecked")
+		Query query = em.createQuery("SELECT e from Estudiante e where genero = :genero");
+		Estudiante estudiante = (Estudiante) query.setParameter("genero", genero).getSingleResult();
+		System.out.println(estudiante.toString());
+		em.close();
+		return estudiante;
+	}
+	
+	//f)recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
+	public static List<Carrera> carrerasSegunInscriptos(EntityManager em){
+		em.getTransaction().begin();
+		@SuppressWarnings("unchecked")
+		List <Carrera> carreras = em.createQuery("Select ec.carrera from Estudiante_Carrera ec group by ID_Carrera having count(ID_Carrera) > 0 order by count(ID_Estudiante) DESC").getResultList();
+		for(int i = 0; i<carreras.size(); i++) {
+			System.out.println(carreras.get(i).toString());
+		}
+		em.close();
+		return carreras;
+	}
+	
 
-
+	//g) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
+	public static List<Estudiante> estudianteSegunCarreraCiudad(int idCarrera, String ciudad,EntityManager em){
+		em.getTransaction().begin();
+		Query query =  em.createQuery("SELECT ec.estudiante from Estudiante_Carrera ec join ec.estudiante e  join ec.carrera c where e.ciudad_residencia = :ciudad_residencia and c.id = :id ");
+		query.setParameter("ciudad_residencia", ciudad);
+		query.setParameter("id", idCarrera);
+		@SuppressWarnings("unchecked")
+		List <Estudiante> carreras = (List<Estudiante>) query.getResultList();
+		for(int i = 0; i<carreras.size(); i++) {
+			System.out.println(carreras.get(i).toString());
+		}
+		em.close();
+		return carreras;
+		
+	}
+}
