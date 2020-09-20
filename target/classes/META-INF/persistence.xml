@@ -6,9 +6,9 @@
 	<persistence-unit name="Arqui">		
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		
-		<class>Requests.Carrera</class>
-		<class>Requests.Estudiante</class>
-		<class>Requests.Estudiante_Carrera</class>
+		<class>Esquemas.Carrera</class>
+		<class>Esquemas.Estudiante</class>
+		<class>Esquemas.Estudiante_Carrera</class>
 		
 		<properties>
 			
