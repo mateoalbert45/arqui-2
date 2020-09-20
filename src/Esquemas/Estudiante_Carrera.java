@@ -15,8 +15,9 @@ public class Estudiante_Carrera {
     	@EmbeddedId
     	private Estudiante_CarreraPK id;
 
+    	
 	    @ManyToOne
-	    @MapsId("id") 
+	    @MapsId("dni") 
 	    @JoinColumn(name = "ID_Estudiante")
 	    private Estudiante estudiante;
 

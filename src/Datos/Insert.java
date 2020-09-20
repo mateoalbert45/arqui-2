@@ -14,13 +14,13 @@ import Esquemas.Estudiante_CarreraPK;
 public class Insert {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
-		Estudiante e1 = new Estudiante(1,"una","asd",20,"asdas",123,"otro",321);
+		Estudiante e1 = new Estudiante("una","asd",20,"asdas",1,"otro",321);
 		Carrera c1 = new Carrera(1,"tudai");
-		Estudiante e2 = new Estudiante(2,"dos","asd",20,"asdas",424,"otro",42342);
+		Estudiante e2 = new Estudiante("dos","asd",20,"asdas",2,"otro",42342);
 		Carrera c2 = new Carrera(2,"latusa");
-		Estudiante e3 = new Estudiante(3,"tres","asd",20,"asdas",234234,"otro",565);
+		Estudiante e3 = new Estudiante("tres","asd",20,"asdas",3,"otro",565);
 		Carrera c3 = new Carrera(3,"porongol");
-		Estudiante e4 = new Estudiante(4,"cuatrochi","asd",20,"asdas",55,"otro",444);
+		Estudiante e4 = new Estudiante("cuatrochi","asd",20,"asdas",4,"otro",444);
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Arqui");
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
@@ -56,7 +56,7 @@ public class Insert {
 	
 	//b) matricular un estudiante en una carrera
 	public static void matricularEstudiante(Estudiante estu, Carrera carr, EntityManager em) {
-		Estudiante_CarreraPK ecpk = new Estudiante_CarreraPK(estu.getId(),carr.getId());
+		Estudiante_CarreraPK ecpk = new Estudiante_CarreraPK(estu.getDni(),carr.getId());
 		Estudiante_Carrera ec = new Estudiante_Carrera(ecpk,estu,carr);		
 		em.persist(ec);
 

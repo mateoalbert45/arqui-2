@@ -10,8 +10,6 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Estudiante {
-	@Id
-	private int id;
 	@Column
 	private String nombre;
 	@Column
@@ -20,11 +18,11 @@ public class Estudiante {
 	private int edad;
 	@Column
 	private String genero;
-	@Column
+	@Id
 	private int dni;
 	@Column
 	private String ciudad_residencia;
-	@Column
+	@Column 
 	private int numero_libreta;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "carrera")
 	private List <Estudiante_Carrera> carreras;
@@ -34,10 +32,9 @@ public class Estudiante {
 		
 	}
 	
-	public Estudiante(int id, String nombre, String apellido, int edad, String genero, int dni,
+	public Estudiante(String nombre, String apellido, int edad, String genero, int dni,
 			String ciudad_residencia, int numero_libreta) {
 		super();
-		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.edad = edad;
@@ -49,14 +46,11 @@ public class Estudiante {
 
 	@Override
 	public String toString() {
-		return "Estudiante [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad + ", genero="
+		return "Estudiante [nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad + ", genero="
 				+ genero + ", dni=" + dni + ", ciudad_residencia=" + ciudad_residencia + ", numero_libreta="
 				+ numero_libreta + "]";
 	}
 
-	public int getId() {
-		return id;
-	}
 
 	public String getNombre() {
 		return nombre;
