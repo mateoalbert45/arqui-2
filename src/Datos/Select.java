@@ -9,6 +9,7 @@ import javax.persistence.Query;
 
 import Esquemas.Carrera;
 import Esquemas.Estudiante;
+import Esquemas.Estudiante_Carrera;
 
 public class Select {
 
@@ -17,10 +18,11 @@ public class Select {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		imprimirEstudiantes(recuperarEstudiantes(em));
-		imprimirEstudiante(estudianteSegunLibreUniversitaria(12345,em));
-		imprimirEstudiante(estudianteSegunGenero("hombre",em));
-		imprimirCarreras(carrerasSegunInscriptos(em));
-		imprimirEstudiantes(estudianteSegunCarreraCiudad(1, "tandil",em));
+//		imprimirEstudiante(estudianteSegunLibreUniversitaria(321,em));
+//		imprimirEstudiante(estudianteSegunGenero("hombre",em));
+//		imprimirCarreras(carrerasSegunInscriptos(em));
+//		imprimirEstudiantes(estudianteSegunCarreraCiudad(1, "tandil",em));
+//		imprimirReporteCarreras(reporteCarreras(em));
 		em.close();
 
 	}
@@ -72,7 +74,11 @@ public class Select {
 		/*Generar un reporte de las carreras, que para cada carrera incluya información de los
 		inscriptos y egresados por año. Se deben ordenar las carreras alfabéticamente, y presentar
 		los años de manera cronológica.*/
-	 
+		public static List<Estudiante_Carrera> reporteCarreras(EntityManager em){
+			@SuppressWarnings("unchecked")
+			List <Estudiante_Carrera> reporte = em.createQuery("Select ec from Estudiante_Carrera ec  join ec.carrera c  where ec.fechaEgreso is not null order by c.nombre,ec.fechaEgreso").getResultList();
+			return reporte;	
+		}
 		
 		
 		
@@ -93,7 +99,26 @@ public class Select {
 			for(int i = 0; i<carreras.size(); i++) {
 				System.out.println(carreras.get(i).toString());
 				}
-		}	
+		}
+		
+		public static void imprimirReporteCarreras(List<Estudiante_Carrera>  reporte) {
+			for(int i = 0; i<reporte.size(); i++) {
+				//perdon
+				if(i>0) {
+					if(!reporte.get(i-1).getCarrera().getNombre().equalsIgnoreCase(reporte.get(i).getCarrera().getNombre())) {
+						System.out.println(reporte.get(i).getCarrera().toString());
+					}
+				}
+				else {
+					System.out.println(reporte.get(i).getCarrera().toString());
+				}
+				
+				System.out.println(reporte.get(i).getEstudiante().toString() + " FechaEgreso" + reporte.get(i).getFechaEgreso());
+
+				}
+
+				
+		}
 		
 		
 }

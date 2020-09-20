@@ -1,5 +1,8 @@
 package Esquemas;
 
+import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -21,7 +24,13 @@ public class Estudiante_Carrera {
 	    @MapsId("id")
 	    @JoinColumn(name = "ID_Carrera")
 	    private Carrera carrera;
-
+		
+	    @Column
+	    (nullable = true)
+	    private Date fechaEgreso;
+	    
+	    
+	    
 		public Estudiante_Carrera(){
 			
 		}
@@ -33,6 +42,7 @@ public class Estudiante_Carrera {
 			this.id = id;
 			this.estudiante = estudiante;
 			this.carrera = carrera;
+			this.fechaEgreso = null;
 		}
 
 
@@ -56,6 +66,12 @@ public class Estudiante_Carrera {
 
 		public Carrera getCarrera() {
 			return carrera;
+		}
+
+
+
+		public Date getFechaEgreso() {
+			return fechaEgreso;
 		}    
 	    
 		
