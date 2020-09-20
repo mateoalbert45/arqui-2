@@ -38,12 +38,12 @@ public class Estudiante_Carrera {
 	    
 	    
 	    
-		public Estudiante_Carrera(Estudiante_CarreraPK id, Estudiante estudiante, Carrera carrera) {
+		public Estudiante_Carrera(Estudiante_CarreraPK id, Estudiante estudiante, Carrera carrera, Date fechaEgreso) {
 			super();
 			this.id = id;
 			this.estudiante = estudiante;
 			this.carrera = carrera;
-			this.fechaEgreso = null;
+			this.fechaEgreso = fechaEgreso;
 		}
 
 

@@ -10,6 +10,8 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Estudiante {
+	@Id
+	private int dni;
 	@Column
 	private String nombre;
 	@Column
@@ -18,8 +20,6 @@ public class Estudiante {
 	private int edad;
 	@Column
 	private String genero;
-	@Id
-	private int dni;
 	@Column
 	private String ciudad_residencia;
 	@Column 
@@ -32,7 +32,7 @@ public class Estudiante {
 		
 	}
 	
-	public Estudiante(String nombre, String apellido, int edad, String genero, int dni,
+	public Estudiante(int dni,String nombre, String apellido, int edad, String genero,
 			String ciudad_residencia, int numero_libreta) {
 		super();
 		this.nombre = nombre;

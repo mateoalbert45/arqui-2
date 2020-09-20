@@ -97,7 +97,7 @@ public class Select {
 			}
 		}
 		
-		/*Generar un reporte de las carreras, que para cada carrera incluya información de los
+		/*3)Generar un reporte de las carreras, que para cada carrera incluya información de los
 		inscriptos y egresados por año. Se deben ordenar las carreras alfabéticamente, y presentar
 		los años de manera cronológica.*/
 		public static List<Estudiante_Carrera> reporteCarreras(EntityManager em){
